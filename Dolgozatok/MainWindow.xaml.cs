@@ -51,7 +51,31 @@ namespace Dolgozatok
 
         private void hozzaad(object sender, RoutedEventArgs e)
         {
+            if (tboxNev.Text == "" || tboxEletkor.Text == "" || tboxPontszam.Text == "")
+            {
+                MessageBox.Show("Minden mezőt ki kell tölteni");
+                return;
+            }
 
+            int eletkor;
+            int pontszam;
+            if (!int.TryParse(tboxEletkor.Text, out eletkor) || !int.TryParse(tboxPontszam.Text, out pontszam))
+            {
+                MessageBox.Show("Az életkor és a pontszám csak szám lehet");
+                return;
+            }
+
+            if (pontszam < 0)
+            {
+                MessageBox.Show("A pontszám nem lehet negatív");
+            }
+
+            dolgozatok.Add(new Dolgozat(tboxNev.Text, eletkor, pontszam));
+            dgrid.Items.Refresh();
+
+            tboxNev.Clear();
+            tboxEletkor.Clear();
+            tboxPontszam.Clear();
         }
 
         private void mentes(object sender, RoutedEventArgs e)
