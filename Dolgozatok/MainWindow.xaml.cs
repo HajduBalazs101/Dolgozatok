@@ -1,5 +1,6 @@
 ﻿using System.Text;
 using System.Windows;
+using System.IO;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
@@ -80,7 +81,13 @@ namespace Dolgozatok
 
         private void mentes(object sender, RoutedEventArgs e)
         {
-
+            List<string> sorok = new List<string>();
+            foreach (Dolgozat d in dolgozatok)
+            {
+                sorok.Add($"{d.Nev};{d.Eletkor};{d.Pontszam}");
+            }
+            File.WriteAllLines("dolgozatok.txt", sorok);
+            MessageBox.Show("Sikeres mentés!");
         }
     }
 }
